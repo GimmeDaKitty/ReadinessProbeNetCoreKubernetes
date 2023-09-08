@@ -5,10 +5,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["ReadinessProbeNetCoreKubernetes/ReadinessProbeNetCoreKubernetes.csproj", "ReadinessProbeNetCoreKubernetes/"]
-RUN dotnet restore "ReadinessProbeNetCoreKubernetes/ReadinessProbeNetCoreKubernetes.csproj"
+COPY ["ReadinessProbeNetCoreKubernetes.csproj", "/src"]
+RUN dotnet restore "ReadinessProbeNetCoreKubernetes.csproj"
 COPY . .
-WORKDIR "/src/ReadinessProbeNetCoreKubernetes"
+WORKDIR "/src"
 RUN dotnet build "ReadinessProbeNetCoreKubernetes.csproj" -c Release -o /app/build
 
 FROM build AS publish
